@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Product } from "@/app/Models/Product.Model";
 import Catalog from "@/app/Components/Catalog.Component";
 import { Container } from "@mui/system";
 import {
@@ -13,16 +12,11 @@ import {
 import { createTheme } from "@mui/material/styles";
 import Nav from "@/app/Components/Nav.Component";
 import * as React from "react";
+import { Provider } from "react-redux";
+import { store } from "next/dist/build/output/store";
 
 export default function Home() {
-  const [products, setProducts] = useState<Product[]>([]);
   const [isThemeDark, setIsThemeDark] = useState<boolean>(true);
-
-  useEffect(() => {
-    fetch("https://localhost:5001/api/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
 
   const themeHandler = isThemeDark
     ? createTheme({
@@ -70,7 +64,7 @@ export default function Home() {
             label="Dark Mode"
             sx={{ m: 1, alignSelf: "end" }}
           />
-          <Catalog products={products} />
+          <Catalog />
         </Container>
       </Box>
     </ThemeProvider>

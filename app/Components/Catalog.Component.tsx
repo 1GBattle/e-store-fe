@@ -1,15 +1,19 @@
-import { Product } from "@/app/Models/Product.Model";
+"use client";
 import ProductList from "@/app/Components/ProductList.Component";
 import { Box } from "@mui/material";
+import { useGetProductsQuery } from "@/app/redux/product.api";
 
-interface Props {
-  products: Product[];
-}
+export default function Catalog() {
+  const { data, isSuccess, isError, isLoading } = useGetProductsQuery();
 
-export default function Catalog({ products }: Props) {
+  if (!data && isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error...</div>;
+
   return (
-    <Box>
-      <ProductList products={products} />
-    </Box>
+    isSuccess && (
+      <Box>
+        <ProductList products={data} />
+      </Box>
+    )
   );
 }
