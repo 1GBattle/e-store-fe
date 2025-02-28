@@ -13,6 +13,7 @@ import {
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useGetProductDetailsQuery } from "@/app/redux/product.api";
+import LoadingComponent from "@/app/Components/Loading.Component";
 
 export default function ProductDetailsPage() {
   const routeParams = useParams();
@@ -33,7 +34,13 @@ export default function ProductDetailsPage() {
     { label: "Brand", value: product?.brand },
   ];
 
-  isLoading && <div>Loading...</div>;
+  if (!isSuccess) {
+    return (
+      <div className="flex justify-center items-center w-full h-full">
+        <LoadingComponent />
+      </div>
+    );
+  }
 
   return (
     isSuccess && (
@@ -42,7 +49,7 @@ export default function ProductDetailsPage() {
           <img
             src={product?.picUrl}
             alt={product?.name}
-            className="w-[500px] h-[600px]"
+            className="w-[450px] h-[500px]"
           />
         </Grid2>
 
@@ -55,7 +62,12 @@ export default function ProductDetailsPage() {
           </Typography>
 
           <TableContainer>
-            <Table sx={{ width: "50%" }}>
+            <Table
+              sx={{
+                width: "100%",
+                color: "black",
+              }}
+            >
               <TableBody>
                 {productDetails.map((item, index) => (
                   <TableRow key={index}>
@@ -76,7 +88,7 @@ export default function ProductDetailsPage() {
               type="number"
               sx={{ width: 300, height: 54 }}
             />
-            <Button variant="contained" sx={{ height: 50, width: 200 }}>
+            <Button variant="contained" sx={{ height: 54, width: 200 }}>
               Add To Cart
             </Button>
           </Grid2>

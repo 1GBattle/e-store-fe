@@ -7,8 +7,10 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div>
-      <Nav />
+    <div className="full">
+      <div className="mb-[8rem]">
+        <Nav />
+      </div>
       {children}
     </div>
   );

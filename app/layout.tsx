@@ -3,6 +3,8 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import ReduxProvider from "@/app/redux/ReduxProvider";
+import "react-toastify/dist/ReactToastify.css";
+import ToastContainerComponent from "@/app/Components/ToastContainer.Component";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -24,7 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ReduxProvider>
-        <body className={`${roboto.className} antialiased`}>{children}</body>
+        <body className={`${roboto.className} antialiased`}>
+          {children}
+          <ToastContainerComponent />
+        </body>
       </ReduxProvider>
     </html>
   );
