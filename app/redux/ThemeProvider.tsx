@@ -2,8 +2,6 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import React from "react";
 import { useAppSelector } from "@/app/redux/store";
-import { ToastContainer } from "react-toastify";
-import ToastContainerComponent from "@/app/Components/ToastContainer.Component";
 
 interface ThemeProps {
   children: React.ReactNode;

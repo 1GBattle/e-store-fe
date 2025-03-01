@@ -4,7 +4,6 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 
 const customBaseQuery = fetchBaseQuery({
   baseUrl: "https://localhost:5001/api",
@@ -18,7 +17,6 @@ export const baseQueryErrorHandling = async (
   api: BaseQueryApi,
   extraOptions: object,
 ) => {
-  const router = useRouter();
   await sleep();
   const result = await customBaseQuery(args, api, extraOptions);
 
@@ -54,7 +52,7 @@ export const baseQueryErrorHandling = async (
         break;
       case 500:
         typeof responseData === "object"
-          ? router.push("/error/server-error")
+          ? toast.error(responseData.title)
           : null;
         break;
       default:

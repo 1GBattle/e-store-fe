@@ -15,7 +15,6 @@ export default function Nav() {
   const uiState = useAppSelector((state) => state.uiState);
   const dispatch = useAppDispatch();
 
-  console.log("darkMode", uiState.darkMode);
   return (
     <AppBar position="fixed">
       <Toolbar

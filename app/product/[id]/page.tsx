@@ -12,16 +12,21 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useGetProductDetailsQuery } from "@/app/redux/product.api";
 import LoadingComponent from "@/app/Components/Loading.Component";
+import { useEffect, useState } from "react";
+import { getProductById } from "@/app/utils/data-fetching/products";
+import { Product } from "@/app/Models/Product.Model";
 
 export default function ProductDetailsPage() {
   const routeParams = useParams();
   const { id } = routeParams;
-  const { data, isSuccess, isError, isLoading } = useGetProductDetailsQuery(
-    parseInt(id as string),
-  );
-  const product = data;
+  const [product, setProduct] = useState<Product>();
+
+  useEffect(() => {
+    getProductById(parseInt(id as string)).then((res) => {
+      res ? setProduct(res) : null;
+    });
+  }, []);
 
   const productDetails = [
     { label: "Name", value: product?.name },
@@ -34,7 +39,7 @@ export default function ProductDetailsPage() {
     { label: "Brand", value: product?.brand },
   ];
 
-  if (!isSuccess) {
+  if (!product) {
     return (
       <div className="flex justify-center items-center w-full h-full">
         <LoadingComponent />
@@ -43,7 +48,7 @@ export default function ProductDetailsPage() {
   }
 
   return (
-    isSuccess && (
+    product && (
       <Grid2 container spacing={6} maxWidth="lg" mx="auto" mt={12}>
         <Grid2 size={6}>
           <img
